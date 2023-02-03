@@ -52,13 +52,13 @@ fun printPayslip(){
         >|     PAYMENT DETAILS                     DEDUCTION DETAILS             |
         >|_______________________________________________________________________|
         >|                                                                       |
-        >|     Salary: $monthlySalary           PRSI: $monthlyPrsi                       |
-        >|     Bonus: ${annualBonus/12}                      PAYE: $monthlyPaye                        |
-        >|                                         Cycle To Work: $monthlyCycleDeduction          |
+        >|     Salary: ${"%.2f".format(monthlySalary)}                     PRSI: ${"%.2f".format(monthlyPrsi)}                  |
+        >|     Bonus: ${"%.2f".format(annualBonus/12)}                       PAYE: ${"%.2f".format(monthlyPaye)}                 |
+        >|                                         Cycle To Work: ${"%.2f".format(monthlyCycleDeduction)}          |
         >|_______________________________________________________________________|
-        >|     Gross: $grossPay            Total Deductions: $totalDeductions    |
+        >|     Gross: ${"%.2f".format(grossPay)}                      Total Deductions: ${"%.2f".format(totalDeductions)}      |
         >|_______________________________________________________________________|
-        >|                           Net Pay: ${(grossPay - totalDeductions)}                            |
+        >|                           Net Pay: ${"%.2f".format((grossPay - totalDeductions))}                            |
         >|_______________________________________________________________________|
         """.trimMargin(">")
 
