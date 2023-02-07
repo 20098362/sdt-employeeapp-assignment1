@@ -1,9 +1,8 @@
-package ie.setu.employeeapp
+package ie.setu
 
-import java.util.*
-import kotlin.math.roundToInt
+import kotlin.math.round
 
-
+//Values used in the payslip
 val firstName = "Joe"
 
 val lastName = "Soap"
@@ -27,17 +26,21 @@ fun main(args: Array<String>){
     printPayslip()
 }
 
+//Rounds doubles to 2 decimal places
+fun roundTwoDecimals(num: Double) = round(num * 100) / 100
+
+//Generates the payslip template and makes calculations with the values given
 fun printPayslip(){
 
-    val monthlySalary = (grossSalary/12)
+    val monthlySalary = roundTwoDecimals(grossSalary/12)
 
-    val monthlyPrsi = monthlySalary * (prsiPercentage/100)
+    val monthlyPrsi     = roundTwoDecimals(monthlySalary * (prsiPercentage / 100))
 
-    val monthlyPaye = monthlySalary * (payePercentage / 100)
+    val monthlyPaye     = roundTwoDecimals(monthlySalary * (payePercentage / 100))
 
-    val grossPay = (monthlySalary + (annualBonus/12))
+    val grossPay        = roundTwoDecimals(monthlySalary + (annualBonus/12))
 
-    val totalDeductions = (monthlyPrsi + monthlyPrsi + monthlyCycleDeduction)
+    val totalDeductions = roundTwoDecimals((monthlyPrsi + monthlyPrsi + monthlyCycleDeduction))
 
 
     val printOut = """
@@ -45,20 +48,20 @@ fun printPayslip(){
         >|                             Monthly Payslip                           |
         >|_______________________________________________________________________|
         >|                                                                       |
-        >|     Employee Name: ${firstName.uppercase()} ${lastName.uppercase()}               Gender: ${gender.uppercase()}                   |
+        >|     Employee Name: ${firstName.uppercase()} ${lastName.uppercase()}             Gender: ${gender.uppercase()}                   |
         >|                                                                       |
         >|_______________________________________________________________________|
         >|                                                                       |
         >|     PAYMENT DETAILS                     DEDUCTION DETAILS             |
         >|_______________________________________________________________________|
         >|                                                                       |
-        >|     Salary: ${"%.2f".format(monthlySalary)}                     PRSI: ${"%.2f".format(monthlyPrsi)}                  |
-        >|     Bonus: ${"%.2f".format(annualBonus/12)}                       PAYE: ${"%.2f".format(monthlyPaye)}                 |
-        >|                                         Cycle To Work: ${"%.2f".format(monthlyCycleDeduction)}          |
+        >|     Salary: $monthlySalary                      PRSI: $monthlyPrsi                  |
+        >|     Bonus: ${roundTwoDecimals(annualBonus / 12)}                       PAYE: $monthlyPaye                 |
+        >|                                         Cycle To Work: $monthlyCycleDeduction          |
         >|_______________________________________________________________________|
-        >|     Gross: ${"%.2f".format(grossPay)}                      Total Deductions: ${"%.2f".format(totalDeductions)}      |
+        >|     Gross: $grossPay                      Total Deductions: $totalDeductions      |
         >|_______________________________________________________________________|
-        >|                           Net Pay: ${"%.2f".format((grossPay - totalDeductions))}                            |
+        >|                           Net Pay: ${roundTwoDecimals(grossPay - totalDeductions)}                            |
         >|_______________________________________________________________________|
         """.trimMargin(">")
 
