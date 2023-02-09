@@ -20,6 +20,13 @@ fun main(args: Array<String>){
 //Rounds doubles to 2 decimal places
 fun roundTwoDecimals(num: Double) = round(num * 100) / 100
 
+//Combines firstName and lastName, also adds Mr. or Ms. depending on gender
+fun getFullName() = when (gender){
+    "m", "M" -> "Mr. $firstName $lastName"
+    "f", "F" -> "Ms. $firstName $lastName"
+    else -> "$firstName $lastName"
+}
+
 //Generates the payslip template and makes calculations with the values given
 fun printPayslip(){
 
@@ -38,7 +45,7 @@ fun printPayslip(){
         >                             MONTHLY PAYSLIP
         >_______________________________________________________________________
         >                                                                       
-        >     EMPLOYEE NAME: ${firstName.uppercase()} ${lastName.uppercase()} (${gender.uppercase()}), ID: $employeeId
+        >     EMPLOYEE NAME: ${getFullName()}, ID: $employeeId
         >_______________________________________________________________________
         > 
         >     PAYMENT DETAILS (Total Payment: $grossPay)
