@@ -14,7 +14,23 @@ val annualBonus = 1_450.50
 val monthlyCycleDeduction = 54.33
 
 fun main(args: Array<String>){
-    printPayslip()
+    getPayslip()
+}
+
+//Creates the menu for the employeeapp
+fun menu(): Int{
+    print("""
+    Employee Menu for ${getFullName()}
+      1. Monthly Salary
+      2. Monthly PRSI
+      3. Monthly PAYE
+      4. Monthly Gross Pay
+      5. Monthly Total Deductions
+      6. Monthly Net Pay
+      7. Full Payslip
+      0. Exit
+    Enter Option: """)
+    return readLine()!!.toInt()
 }
 
 //Rounds doubles to 2 decimal places
@@ -28,7 +44,7 @@ fun getFullName() = when (gender){
 }
 
 //Generates the payslip template and makes calculations with the values given
-fun printPayslip(){
+fun getPayslip(){
 
     val monthlySalary = roundTwoDecimals(grossSalary/12)
 
