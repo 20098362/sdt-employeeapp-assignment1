@@ -7,6 +7,7 @@ class Employee(var firstName: String, var lastName: String, var gender: String, 
                var annualBonus: Double, var monthlyCycleDeduction: Double) {
 
 
+
     fun roundTwoDecimals(num: Double) = round(num * 100) / 100
 
     //Combines firstName and lastName, also adds Mr. or Ms. depending on gender
@@ -54,6 +55,10 @@ class Employee(var firstName: String, var lastName: String, var gender: String, 
         """.trimMargin(">")
 
         println(printOut)
+    }
+
+    override fun toString(): String {
+        return "Employee(firstName='$firstName', lastName='$lastName', gender='$gender', employeeId=$employeeId, grossSalary=$grossSalary, payePercentage=$payePercentage, prsiPercentage=$prsiPercentage, annualBonus=$annualBonus, monthlyCycleDeduction=$monthlyCycleDeduction)"
     }
 }
 

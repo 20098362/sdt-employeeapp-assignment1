@@ -36,8 +36,11 @@ fun start() {
 }
 
 fun list(){
-    println(employees.findAll())
+    employees.findAll()
+        .forEach{ println(it) }
 }
+
+
 
 fun search() {
     val employee = getEmployeeById()
