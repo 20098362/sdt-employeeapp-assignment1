@@ -14,7 +14,22 @@ val annualBonus = 1_450.50
 val monthlyCycleDeduction = 54.33
 
 fun main(args: Array<String>){
-    getPayslip()
+    var input:Int
+    do{
+        input = menu()
+        when(input){
+            1 -> println("Monthly Salary: ${getMonthlySalary()}")
+            2 -> println("Monthly PRSI: ${getMonthlyPRSI()}")
+            3 -> println("Monthly PAYE: ${getMonthlyPAYE()}")
+            4 -> println("Monthly Gross Pay: ${getGrossMonthlyPay()}")
+            5 -> println("Monthly Total Deductions: ${getTotalMonthlyDeductions()}")
+            6 -> println("Monthly Net Pay: ${getNetMonthlyPay()}")
+            7 -> println(getPayslip())
+            0 -> println("Closing app")
+            else -> println("Invalid option")
+        }
+        println()
+    } while(input != 0)
 }
 
 //Creates the menu for the employeeapp
@@ -43,18 +58,16 @@ fun getFullName() = when (gender){
     else -> "$firstName $lastName"
 }
 
+//List of methods that calculate figures for payslip
+fun getMonthlySalary() = roundTwoDecimals(grossSalary / 12)
+fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (prsiPercentage / 100))
+fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (payePercentage / 100))
+fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (annualBonus / 12))
+fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + monthlyCycleDeduction))
+fun getNetMonthlyPay() = roundTwoDecimals(roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions()))
+
 //Generates the payslip template and makes calculations with the values given
 fun getPayslip(){
-
-    val monthlySalary = roundTwoDecimals(grossSalary/12)
-
-    val monthlyPrsi     = roundTwoDecimals(monthlySalary * (prsiPercentage / 100))
-
-    val monthlyPaye     = roundTwoDecimals(monthlySalary * (payePercentage / 100))
-
-    val grossPay        = roundTwoDecimals(monthlySalary + (annualBonus/12))
-
-    val totalDeductions = roundTwoDecimals((monthlyPrsi + monthlyPrsi + monthlyCycleDeduction))
 
     val printOut = """
         >_______________________________________________________________________
@@ -64,21 +77,21 @@ fun getPayslip(){
         >     EMPLOYEE NAME: ${getFullName()}, ID: $employeeId
         >_______________________________________________________________________
         > 
-        >     PAYMENT DETAILS (Total Payment: $grossPay)
+        >     PAYMENT DETAILS (Total Payment: ${getGrossMonthlyPay()})
         >_______________________________________________________________________
-        >        Salary: $monthlySalary
+        >        Salary: ${getMonthlySalary()}
         >        Bonus: ${roundTwoDecimals(annualBonus) / 12}
         >_______________________________________________________________________
         >                                                                       
-        >     DEDUCTION DETAILS (Total Deductions: $totalDeductions)
+        >     DEDUCTION DETAILS (Total Deductions: ${getTotalMonthlyDeductions()})
         >_______________________________________________________________________
         >                                         
-        >        PRSI: $monthlyPrsi
-        >        PAYE: $monthlyPaye
+        >        PRSI: ${getMonthlyPRSI()}
+        >        PAYE: ${getMonthlyPAYE()}
         >        Cycle To Work: $monthlyCycleDeduction
         >_______________________________________________________________________
         >
-        >     NET PAY: ${roundTwoDecimals(grossPay - totalDeductions)}                            
+        >     NET PAY: ${roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions())}                            
         >_______________________________________________________________________
         """.trimMargin(">")
 
