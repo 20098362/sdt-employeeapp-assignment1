@@ -2,16 +2,9 @@ package ie.setu
 
 import kotlin.math.round
 
-//Values used in the payslip
-val firstName = "Joe"
-val lastName = "Soap"
-val gender = "m"
-val employeeId = 6143
-val grossSalary = 67_543.21
-val payePercentage = 38.5
-val prsiPercentage = 5.2
-val annualBonus = 1_450.50
-val monthlyCycleDeduction = 54.33
+//Hardcoded sample employee object
+var employee =  Employee("Joe", "Soap", "m", 6143, 67543.21, 38.5, 5.2, 1450.50, 54.33)
+
 
 fun main(args: Array<String>){
     var input:Int
@@ -52,18 +45,18 @@ fun menu(): Int{
 fun roundTwoDecimals(num: Double) = round(num * 100) / 100
 
 //Combines firstName and lastName, also adds Mr. or Ms. depending on gender
-fun getFullName() = when (gender){
-    "m", "M" -> "Mr. $firstName $lastName"
-    "f", "F" -> "Ms. $firstName $lastName"
-    else -> "$firstName $lastName"
+fun getFullName() = when (employee.gender){
+    "m", "M" -> "Mr. ${employee.firstName} ${employee.lastName}"
+    "f", "F" -> "Ms. ${employee.firstName} ${employee.lastName}"
+    else -> "${employee.firstName} ${employee.lastName}"
 }
 
 //List of methods that calculate figures for payslip
-fun getMonthlySalary() = roundTwoDecimals(grossSalary / 12)
-fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (prsiPercentage / 100))
-fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (payePercentage / 100))
-fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (annualBonus / 12))
-fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + monthlyCycleDeduction))
+fun getMonthlySalary() = roundTwoDecimals(employee.grossSalary / 12)
+fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (employee.prsiPercentage / 100))
+fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (employee.payePercentage / 100))
+fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (employee.annualBonus / 12))
+fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + employee.monthlyCycleDeduction))
 fun getNetMonthlyPay() = roundTwoDecimals(roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions()))
 
 //Generates the payslip template and makes calculations with the values given
@@ -74,13 +67,13 @@ fun getPayslip(){
         >                             MONTHLY PAYSLIP
         >_______________________________________________________________________
         >                                                                       
-        >     EMPLOYEE NAME: ${getFullName()}, ID: $employeeId
+        >     EMPLOYEE NAME: ${getFullName()}, ID: ${employee.employeeId}
         >_______________________________________________________________________
         > 
         >     PAYMENT DETAILS (Total Payment: ${getGrossMonthlyPay()})
         >_______________________________________________________________________
         >        Salary: ${getMonthlySalary()}
-        >        Bonus: ${roundTwoDecimals(annualBonus) / 12}
+        >        Bonus: ${roundTwoDecimals(employee.annualBonus) / 12}
         >_______________________________________________________________________
         >                                                                       
         >     DEDUCTION DETAILS (Total Deductions: ${getTotalMonthlyDeductions()})
@@ -88,7 +81,7 @@ fun getPayslip(){
         >                                         
         >        PRSI: ${getMonthlyPRSI()}
         >        PAYE: ${getMonthlyPAYE()}
-        >        Cycle To Work: $monthlyCycleDeduction
+        >        Cycle To Work: ${employee.monthlyCycleDeduction}
         >_______________________________________________________________________
         >
         >     NET PAY: ${roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions())}                            
