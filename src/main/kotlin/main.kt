@@ -1,10 +1,13 @@
 package ie.setu
 
+import mu.KotlinLogging
+
 
 var employees = EmployeeAPI()
 
 
 fun menu():Int{
+    logger.info { "Initialising menu" }
     print(""" 
          |Employee Menu
          |   1. Add Employee
@@ -40,9 +43,8 @@ fun list(){
         .forEach{ println(it) }
 }
 
-
-
 fun search() {
+    logger.info { "Searches by employee ID" }
     val employee = getEmployeeById()
     if (employee == null)
         println("No employee found")
@@ -89,6 +91,9 @@ fun add(){
     employees.create(Employee(firstName, surname, gender, 0, grossSalary, payePercentage, prsiPercentage, annualBonus, cycleToWorkMonthlyDeduction))
 }
 
+val logger = KotlinLogging.logger {}
+
 fun main(args: Array<String>){
+    logger.info { "Launching Employee App" }
     start()
 }
