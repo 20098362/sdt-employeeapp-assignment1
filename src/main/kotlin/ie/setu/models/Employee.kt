@@ -1,12 +1,14 @@
 package ie.setu.models
 
+import ie.setu.ansiCyan
+import ie.setu.ansiGreen
+import ie.setu.ansiRed
+import ie.setu.ansiReset
 import kotlin.math.round
 
 class Employee(var firstName: String, var lastName: String, var gender: String, var employeeId: Int,
                var grossSalary: Double, var payePercentage: Double, var prsiPercentage: Double,
                var annualBonus: Double, var monthlyCycleDeduction: Double) {
-
-
 
     fun roundTwoDecimals(num: Double) = round(num * 100) / 100
 
@@ -29,29 +31,29 @@ class Employee(var firstName: String, var lastName: String, var gender: String, 
     fun getPayslip() {
 
         val printOut = """
-        >_______________________________________________________________________
+        >${ansiGreen}_______________________________________________________________________$ansiReset
         >                             MONTHLY PAYSLIP
-        >_______________________________________________________________________
+        >${ansiGreen}_______________________________________________________________________$ansiReset
         >                                                                       
-        >     EMPLOYEE NAME: ${getFullName()}, ID: ${employeeId}
-        >_______________________________________________________________________
+        >     EMPLOYEE NAME: ${ansiCyan + getFullName() + ansiReset}, ID: ${ansiCyan + employeeId + ansiReset}
+        >${ansiGreen}_______________________________________________________________________$ansiReset
         > 
         >     PAYMENT DETAILS (Total Payment: ${getGrossMonthlyPay()})
-        >_______________________________________________________________________
-        >        Salary: ${getMonthlySalary()}
-        >        Bonus: ${roundTwoDecimals(annualBonus) / 12}
-        >_______________________________________________________________________
+        >${ansiGreen}_______________________________________________________________________$ansiReset
+        >        ${ansiRed}Salary: ${ansiReset}${getMonthlySalary()}
+        >        ${ansiRed}Bonus: ${ansiReset}${roundTwoDecimals(annualBonus) / 12}
+        >${ansiGreen}_______________________________________________________________________$ansiReset
         >                                                                       
         >     DEDUCTION DETAILS (Total Deductions: ${getTotalMonthlyDeductions()})
-        >_______________________________________________________________________
+        >${ansiGreen}_______________________________________________________________________$ansiReset
         >                                         
-        >        PRSI: ${getMonthlyPRSI()}
-        >        PAYE: ${getMonthlyPAYE()}
-        >        Cycle To Work: ${monthlyCycleDeduction}
-        >_______________________________________________________________________
+        >        ${ansiRed}PRSI: ${ansiReset}${getMonthlyPRSI()}
+        >        ${ansiRed}PAYE: ${ansiReset}${getMonthlyPAYE()}
+        >        ${ansiRed}Cycle To Work: ${ansiReset}${monthlyCycleDeduction}
+        >${ansiGreen}_______________________________________________________________________$ansiReset
         >
         >     NET PAY: ${roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions())}                            
-        >_______________________________________________________________________
+        >${ansiGreen}_______________________________________________________________________$ansiReset
         """.trimMargin(">")
 
         println(printOut)

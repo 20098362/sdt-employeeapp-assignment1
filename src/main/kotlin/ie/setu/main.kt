@@ -4,21 +4,32 @@ import ie.setu.controllers.EmployeeAPI
 import ie.setu.models.Employee
 import mu.KotlinLogging
 
-
 var employees = EmployeeAPI()
+
+val ansiReset = "\u001B[0m"
+val ansiRed = "\u001B[31m"
+val ansiGreen = "\u001B[32m"
+val ansiYellow = "\u001B[33m"
+val ansiBlue = "\u001B[34m"
+val ansiCyan = "\u001B[36m"
 
 
 fun menu():Int{
     logger.info { "Initialising menu" }
     print(""" 
+         |${ansiGreen}_______________________________________________________________________$ansiReset
          |Employee Menu
-         |   1. Add Employee
-         |   2. List All Employees
-         |   3. Search Employees 
-         |   4. Print Payslip for Employee
-         |  -1. Exit
+         |${ansiGreen}_______________________________________________________________________$ansiReset
+         |   1. ${ansiBlue}Add Employee${ansiReset}
+         |   2. ${ansiBlue}List All Employees${ansiReset}
+         |   3. ${ansiBlue}Search Employees ${ansiReset}
+         |   4. ${ansiBlue}Print Payslip for Employee${ansiReset}
+         |   5. ${ansiBlue}Add sample employees${ansiReset}
+         |   0. ${ansiYellow}Exit${ansiReset}
          |       
-         |Enter Option : """.trimMargin())
+         |Enter Option :
+         | ${ansiGreen}_______________________________________________________________________$ansiReset
+         |""".trimMargin())
     return readLine()!!.toInt()
 }
 
@@ -32,8 +43,8 @@ fun start() {
             2 -> list()
             3 -> search()
             4 -> paySlip()
-            -99 -> dummyData()
-            -1 -> println("Exiting App")
+            5 -> dummyData()
+            0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
         println()
@@ -67,9 +78,10 @@ fun paySlip(){
 }
 
 fun dummyData() {
-    employees.create(Employee("Joe", "Soap", "m", 0, 35655.43, 31.0, 7.5, 2000.0, 25.6))
-    employees.create(Employee("Joan", "Murphy", "f", 0, 54255.13, 32.5, 7.0, 1500.0, 55.3))
-    employees.create(Employee("Mary", "Quinn", "f", 0, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+    employees.create(Employee("Joe", "Soap", "m", 1, 35655.43, 31.0, 7.5, 2000.0, 25.6))
+    employees.create(Employee("Joan", "Murphy", "f", 2, 54255.13, 32.5, 7.0, 1500.0, 55.3))
+    employees.create(Employee("Mary", "Quinn", "f", 3, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+    println(ansiYellow + "Adding sample employees..." + ansiReset)
 }
 
 fun add(){
