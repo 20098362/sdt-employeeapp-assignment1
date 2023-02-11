@@ -26,6 +26,7 @@ fun menu():Int{
          |   4. ${ansiBlue}Print Payslip for Employee${ansiReset}
          |   5. ${ansiBlue}Add sample employees${ansiReset}
          |   6. ${ansiBlue}Remove employee by ID$ansiReset
+         |   7. ${ansiBlue}Sort by first name$ansiReset
          |   0. ${ansiYellow}Exit${ansiReset}
          |       
          |Enter Option :
@@ -46,6 +47,7 @@ fun start() {
             4 -> paySlip()
             5 -> dummyData()
             6 -> removeEmployee()
+            7 -> sortByFirstName()
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -58,6 +60,11 @@ internal fun employeeSizeCheck(): Int{
     employees.findAll()
         .forEach { employeeCount++ }
     return employeeCount
+}
+
+fun sortByFirstName(){
+    employees.sortName()
+    println(ansiYellow + "Employees sorted by first name" + ansiReset)
 }
 
 fun removeEmployee(){

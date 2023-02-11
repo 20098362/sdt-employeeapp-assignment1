@@ -32,4 +32,11 @@ class EmployeeAPI {
         employees.remove(removeId)
         println(ansiYellow + "Employee removed" + ansiReset)
     }
+
+    fun sortName(){
+        var sortedNames = employees.sortedWith(compareBy({it.firstName}))
+        for (obj in sortedNames){
+            println(obj.firstName)
+        }
+    }
 }
