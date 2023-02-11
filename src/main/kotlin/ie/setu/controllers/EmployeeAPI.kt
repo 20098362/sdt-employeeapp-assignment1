@@ -28,13 +28,13 @@ class EmployeeAPI {
     }
 
     fun remove(id: Int){
-        var removeId = employees.find { r -> r.employeeId == id }
+        val removeId = employees.find { r -> r.employeeId == id }
         employees.remove(removeId)
         println(ansiYellow + "Employee removed" + ansiReset)
     }
 
     fun sortName(){
-        var sortedNames = employees.sortedWith(compareBy({it.firstName}))
+        val sortedNames = employees.sortedWith(compareBy { it.firstName })
         for (obj in sortedNames){
             println(obj.firstName)
         }

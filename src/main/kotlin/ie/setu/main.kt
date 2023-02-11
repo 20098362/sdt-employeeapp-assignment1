@@ -6,12 +6,12 @@ import mu.KotlinLogging
 
 var employees = EmployeeAPI()
 
-val ansiReset = "\u001B[0m"
-val ansiRed = "\u001B[31m"
-val ansiGreen = "\u001B[32m"
-val ansiYellow = "\u001B[33m"
-val ansiBlue = "\u001B[34m"
-val ansiCyan = "\u001B[36m"
+const val ansiReset = "\u001B[0m"
+const val ansiRed = "\u001B[31m"
+const val ansiGreen = "\u001B[32m"
+const val ansiYellow = "\u001B[33m"
+const val ansiBlue = "\u001B[34m"
+const val ansiCyan = "\u001B[36m"
 
 
 fun menu():Int{
@@ -22,7 +22,7 @@ fun menu():Int{
          |${ansiGreen}_______________________________________________________________________$ansiReset
          |   1. ${ansiBlue}Add Employee${ansiReset}
          |   2. ${ansiBlue}List All Employees${ansiReset}
-         |   3. ${ansiBlue}Search Employees ${ansiReset}
+         |   3. ${ansiBlue}Search Employees $ansiReset
          |   4. ${ansiBlue}Print Payslip for Employee${ansiReset}
          |   5. ${ansiBlue}Add sample employees${ansiReset}
          |   6. ${ansiBlue}Remove employee by ID$ansiReset
@@ -58,7 +58,7 @@ fun start() {
 internal fun employeeSizeCheck(): Int{
     var employeeCount = 0
     employees.findAll()
-        .forEach { employeeCount++ }
+        .forEach { _ -> employeeCount++ }
     return employeeCount
 }
 

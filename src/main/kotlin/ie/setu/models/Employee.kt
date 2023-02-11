@@ -10,21 +10,21 @@ class Employee(var firstName: String, var lastName: String, var gender: String, 
                var grossSalary: Double, var payePercentage: Double, var prsiPercentage: Double,
                var annualBonus: Double, var monthlyCycleDeduction: Double) {
 
-    fun roundTwoDecimals(num: Double) = round(num * 100) / 100
+    private fun roundTwoDecimals(num: Double) = round(num * 100) / 100
 
     //Combines firstName and lastName, also adds Mr. or Ms. depending on gender
-    fun getFullName() = when (gender) {
-        "m", "M" -> "Mr. ${firstName} ${lastName}"
-        "f", "F" -> "Ms. ${firstName} ${lastName}"
-        else -> "${firstName} ${lastName}"
+    private fun getFullName() = when (gender) {
+        "m", "M" -> "Mr. $firstName $lastName"
+        "f", "F" -> "Ms. $firstName $lastName"
+        else -> "$firstName $lastName"
     }
 
     //List of methods that calculate figures for payslip
-    fun getMonthlySalary() = roundTwoDecimals(grossSalary / 12)
-    fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (prsiPercentage / 100))
-    fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (payePercentage / 100))
-    fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (annualBonus / 12))
-    fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + monthlyCycleDeduction))
+    private fun getMonthlySalary() = roundTwoDecimals(grossSalary / 12)
+    private fun getMonthlyPRSI() = roundTwoDecimals(getMonthlySalary() * (prsiPercentage / 100))
+    private fun getMonthlyPAYE() = roundTwoDecimals(getMonthlySalary() * (payePercentage / 100))
+    private fun getGrossMonthlyPay() = roundTwoDecimals(getMonthlySalary() + (annualBonus / 12))
+    private fun getTotalMonthlyDeductions() = roundTwoDecimals((getMonthlyPRSI() + getMonthlyPAYE() + monthlyCycleDeduction))
     fun getNetMonthlyPay() = roundTwoDecimals(roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions()))
 
     //Generates the payslip template and makes calculations with the values given
@@ -52,7 +52,7 @@ class Employee(var firstName: String, var lastName: String, var gender: String, 
         >        ${ansiRed}Cycle To Work: ${ansiReset}${monthlyCycleDeduction}
         >${ansiGreen}_______________________________________________________________________$ansiReset
         >
-        >     NET PAY: ${roundTwoDecimals(getGrossMonthlyPay() - getTotalMonthlyDeductions())}                            
+        >     NET PAY: ${getNetMonthlyPay()}                            
         >${ansiGreen}_______________________________________________________________________$ansiReset
         """.trimMargin(">")
 
