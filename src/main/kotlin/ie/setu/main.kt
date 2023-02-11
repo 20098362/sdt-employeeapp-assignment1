@@ -27,6 +27,7 @@ fun menu():Int{
          |   5. ${ansiBlue}Add sample employees${ansiReset}
          |   6. ${ansiBlue}Remove employee by ID$ansiReset
          |   7. ${ansiBlue}Sort by first name$ansiReset
+         |   8. ${ansiBlue}Search by last name$ansiReset
          |   0. ${ansiYellow}Exit${ansiReset}
          |       
          |Enter Option :
@@ -48,11 +49,19 @@ fun start() {
             5 -> dummyData()
             6 -> removeEmployee()
             7 -> sortByFirstName()
+            8 -> searchBy()
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
         println()
     } while (input != -1)
+}
+
+fun searchBy(){
+    println(ansiGreen + "Enter the the name you wish to search by (single letters accepted)")
+    val searchCondition = readLine()!!.toString()
+    employees.searchLastName(searchCondition)
+    println(ansiYellow + "Displaying results" + ansiReset)
 }
 
 internal fun employeeSizeCheck(): Int{
@@ -109,6 +118,7 @@ fun dummyData() {
     employees.create(Employee("Joe", "Soap", "m", 1, 35655.43, 31.0, 7.5, 2000.0, 25.6))
     employees.create(Employee("Joan", "Murphy", "f", 2, 54255.13, 32.5, 7.0, 1500.0, 55.3))
     employees.create(Employee("Mary", "Quinn", "f", 3, 75685.41, 40.0, 8.5, 4500.0, 0.0))
+    employees.create(Employee("Jason", "Sonny", "m", 4, 45732.01, 40.0, 6.5, 7000.0, 0.0))
 }
 
 fun add(){

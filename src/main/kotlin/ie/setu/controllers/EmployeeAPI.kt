@@ -39,4 +39,10 @@ class EmployeeAPI {
             println(obj.firstName)
         }
     }
+
+    fun searchLastName(lName: String){
+        employees
+            .filter { it.lastName.contains(lName) }
+            .forEach { println(it) }
+    }
 }
