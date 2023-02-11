@@ -25,6 +25,7 @@ fun menu():Int{
          |   3. ${ansiBlue}Search Employees ${ansiReset}
          |   4. ${ansiBlue}Print Payslip for Employee${ansiReset}
          |   5. ${ansiBlue}Add sample employees${ansiReset}
+         |   6. ${ansiBlue}Remove employee by ID$ansiReset
          |   0. ${ansiYellow}Exit${ansiReset}
          |       
          |Enter Option :
@@ -44,6 +45,7 @@ fun start() {
             3 -> search()
             4 -> paySlip()
             5 -> dummyData()
+            6 -> removeEmployee()
             0 -> println("Exiting App")
             else -> println("Invalid Option")
         }
@@ -51,12 +53,30 @@ fun start() {
     } while (input != -1)
 }
 
+internal fun employeeSizeCheck(): Int{
+    var employeeCount = 0
+    employees.findAll()
+        .forEach { employeeCount++ }
+    return employeeCount
+}
+
+fun removeEmployee(){
+    println(ansiGreen + "Enter the employee ID you wish to remove" + ansiReset)
+    val deleteEmployee = readLine()!!.toInt()
+    if(deleteEmployee > employeeSizeCheck())
+        println(ansiRed + "Unknown employee" + ansiReset)
+    else
+        employees.remove(deleteEmployee)
+}
+
 fun list(){
     employees.findAll()
         .forEach{ println(it) }
+    println(ansiGreen + "Finished printing employees" + ansiReset)
 }
 
 fun search() {
+    println(ansiGreen + "Enter the employee ID you wish to search by" + ansiReset)
     logger.info { "Searches by employee ID" }
     val employee = getEmployeeById()
     if (employee == null)
@@ -78,10 +98,10 @@ fun paySlip(){
 }
 
 fun dummyData() {
+    println(ansiYellow + "Adding sample employees..." + ansiReset)
     employees.create(Employee("Joe", "Soap", "m", 1, 35655.43, 31.0, 7.5, 2000.0, 25.6))
     employees.create(Employee("Joan", "Murphy", "f", 2, 54255.13, 32.5, 7.0, 1500.0, 55.3))
     employees.create(Employee("Mary", "Quinn", "f", 3, 75685.41, 40.0, 8.5, 4500.0, 0.0))
-    println(ansiYellow + "Adding sample employees..." + ansiReset)
 }
 
 fun add(){

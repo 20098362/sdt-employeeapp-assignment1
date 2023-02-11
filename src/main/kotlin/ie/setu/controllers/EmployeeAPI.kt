@@ -1,5 +1,7 @@
 package ie.setu.controllers
 
+import ie.setu.ansiReset
+import ie.setu.ansiYellow
 import ie.setu.models.Employee
 
 var lastId = 0
@@ -23,5 +25,11 @@ class EmployeeAPI {
     fun create(employee: Employee) {
         employee.employeeId = getId()
         employees.add(employee)
+    }
+
+    fun remove(id: Int){
+        var removeId = employees.find { r -> r.employeeId == id }
+        employees.remove(removeId)
+        println(ansiYellow + "Employee removed" + ansiReset)
     }
 }
